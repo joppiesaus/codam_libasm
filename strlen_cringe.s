@@ -11,20 +11,21 @@ _start:
         mov [count_char], rax
 
 strlen:
-        mov rbx, [count_char] ; the count
+        ; mov rbx, [count_char] ; the counte?
+        mov rbx, str ; original address
         mov rcx, str ; current address
 
         ; TODO this compares size_t and not byte???
-        ; TODO do "minus trick" instead, is better.
 strlen_step:
         mov rax, [rcx] ; load current char in string/pointer
-        inc rcx ; increase pointer by 1 byte to right
-        inc rbx ; increase the count
         cmp rax, 0
-        jnz strlen_step ; go back if not 0 yet
+        jz strlen_out ; go back if not 0 yet
+        inc rcx
+        jmp strlen_step
+strlen_out:
 
-        dec rbx ; we counted one too much, decrement one
-        mov [count_char], rbx
+        sub rcx, rbx ; current address - original address
+        mov [count_char], rcx
 
 print:
         mov rax, [count_char]
