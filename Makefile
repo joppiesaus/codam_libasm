@@ -1,9 +1,11 @@
 NAME=libasm.a
 ASM=nasm
 SRC_DIR=src # TODO
-SRCS=$(wildcard *.s)
+# SRCS=$(wildcard *.s)
+SRCS=ft_strlen.s
 OBJ_DIR=obj
 OBJ=$(SRCS:%.s=$(OBJ_DIR)/%.o)
+CC=gcc
 
 all: $(NAME)
 
@@ -22,7 +24,11 @@ clean:
 
 fclean: clean
 	rm $(NAME)
+	rm test
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test: $(NAME) test.c
+	$(CC) test.c -Wall -Wextra -lasm -L. -o test
+
+.PHONY: all clean fclean re test
