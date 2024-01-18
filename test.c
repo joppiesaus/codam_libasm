@@ -4,14 +4,20 @@
 #include <unistd.h> /* write */
 
 extern size_t ft_strlen(const char *str);
-extern int ft_strcmp(const char *s1, const char *s2);
-extern char *ft_strcpy(char *dst, const char *src);
+extern int    ft_strcmp(const char *s1, const char *s2);
+extern char  *ft_strdup(const char *str);
+extern char  *ft_strcpy(char *dst, const char *src);
 
 #define STRLEN(x) printf("strlen(\"%s\"): %zu, %zu", (x), strlen((x)), ft_strlen((x)));\
     check_result(strlen((x)) == ft_strlen((x)))
 
-#define STRCMP(a, b) printf("strcmp(\"%s\", \"%s\"): %d, %d", (a), (b), strcmp((a), (b)), ft_strcmp((a), (b)));\
-    check_result(strcmp((a), (b)) == ft_strcmp((a), (b)))
+#define STRCMP(a, b) printf("strcmp(\"%s\", \"%s\"): %d, %d", (a), (b), ft_sign(strcmp((a), (b))), ft_sign(ft_strcmp((a), (b))));\
+    check_two(ft_sign(strcmp((a), (b))), ft_sign(ft_strcmp((a), (b))))
+
+/*
+// for some reason this doesn't work
+#define STRCMP(a, b) printf("strcmp(\"%s\", \"%s\"): %d, %d", (a), (b), ft_sign(strcmp((a), (b))), ft_sign(ft_strcmp((a), (b))));\
+    check_result(ft_sign(strcmp((a), (b))) == ft_sign(ft_strcmp((a), (b))))*/
 
 // returns true if n bytes in s are all equal to value
 static int check_bytes(const char *s, const char value, size_t n)
@@ -24,6 +30,39 @@ static int check_bytes(const char *s, const char value, size_t n)
         }
     }
     return 1;
+}
+
+// static void print_byte(const unsigned char b)
+// {
+//     printf("%x%x", b >> 4, b & 0x0f);
+// }
+
+// static void print_int(void *i)
+// {
+//     const char *buf = i;
+
+//     print_byte(buf[0]);
+//     printf(" ");
+//     print_byte(buf[1]);
+//     printf(" ");
+//     print_byte(buf[2]);
+//     printf(" ");
+//     print_byte(buf[3]);
+//     printf("\n");
+// }
+
+// returns the "sign" of the number
+static int ft_sign(int n)
+{
+    if (n < 0)
+    {
+        return -1;
+    }
+    else if (n > 0)
+    {
+        return 1;
+    }
+    return 0;
 }
 
 // // prints all bytes as chars to the to the terminal, with null terminators as 0
@@ -53,6 +92,11 @@ static void check_result(int result)
     }
 }
 
+static void check_two(int a, int b)
+{
+    check_result(a == b);
+}
+
 static void test_strlen()
 {
     STRLEN("");
@@ -77,6 +121,7 @@ static void test_strcmp()
     STRCMP("b\0bsfssdfs", " ggbef");
     STRCMP("\220", "");
     STRCMP("", "\220");
+    STRCMP("f", "g");
 }
 
 static void test_single_strcpy(const char *s)
@@ -114,6 +159,24 @@ static void test_strcpy()
     test_single_strcpy("");
 }
 
+static void test_single_strdup(const char *s)
+{
+    char *dst;
+
+    printf("strdup(\"%s\")", s);
+    dst = ft_strdup(s);
+    check_result(strcmp(s, dst) == 0 && dst != s);
+    free(dst);
+}
+
+static void test_strdup()
+{
+    test_single_strdup("");
+    test_single_strdup("aaaaaaaa");
+    test_single_strdup("aa aaab");
+    test_single_strdup("aaaaaaaab");
+}
+
 int main()
 {
     test_strlen();
@@ -121,5 +184,7 @@ int main()
     test_strcmp();
     printf("\n");
     test_strcpy();
+    printf("\n");
+    test_strdup();
     return 0;
 }
