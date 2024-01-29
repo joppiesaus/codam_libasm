@@ -2,11 +2,14 @@
 #include <stdio.h> /* printf, fflush */
 #include <stdlib.h> /* memset */
 #include <unistd.h> /* write */
+#include <sys/errno.h> /* errno */
 
 extern size_t ft_strlen(const char *str);
 extern int    ft_strcmp(const char *s1, const char *s2);
 extern char  *ft_strdup(const char *str);
 extern char  *ft_strcpy(char *dst, const char *src);
+
+extern ssize_t ft_write(int fd, const void *buf, size_t count);
 
 #define STRLEN(x) printf("strlen(\"%s\"): %zu, %zu", (x), strlen((x)), ft_strlen((x)));\
     check_result(strlen((x)) == ft_strlen((x)))
@@ -177,6 +180,16 @@ static void test_strdup()
     test_single_strdup("aaaaaaaab");
 }
 
+// TODO: test more
+static void test_write()
+{
+    const char *str = "hi";
+
+    ssize_t result = ft_write(34245256, str, 2);
+    printf("ret: %zd, errno: %d\n", result, errno);
+
+}
+
 int main()
 {
     test_strlen();
@@ -186,5 +199,7 @@ int main()
     test_strcpy();
     printf("\n");
     test_strdup();
+    printf("\n");
+    test_write();
     return 0;
 }

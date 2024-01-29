@@ -2,7 +2,7 @@ NAME=libasm.a
 ASM=nasm
 SRC_DIR=src # TODO
 # SRCS=$(wildcard *.s)
-SRCS=ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s
+SRCS=ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s
 OBJ_DIR=obj
 OBJ=$(SRCS:%.s=$(OBJ_DIR)/%.o)
 CC=gcc
