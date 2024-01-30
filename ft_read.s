@@ -17,7 +17,7 @@ ft_read:
         push    rax     ; save errno
         call    __errno_location wrt ..plt      ; put errno location into rax
         pop     rbx     ; put errno into rbx
-        mov     [rax], rbx      ; write errno
+        mov     [rax], ebx      ; write errno(is 32 bit int)
         mov     rax, -1         ; return -1
 
 end:
