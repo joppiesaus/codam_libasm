@@ -3,6 +3,7 @@
 #include <stdlib.h> /* memset */
 #include <unistd.h> /* write */
 #include <sys/errno.h> /* errno */
+#include <fcntl.h>
 
 extern size_t ft_strlen(const char *str);
 extern int    ft_strcmp(const char *s1, const char *s2);
@@ -180,13 +181,69 @@ static void test_strdup()
     test_single_strdup("aaaaaaaab");
 }
 
-// TODO: test more
+static void test_write_single(const char *data, ssize_t len)
+{
+    int     fd[2];
+    char    *buf;
+    
+    if (pipe(fd) == -1)
+    {
+        perror("pipe");
+        return;
+    }
+
+    // set pipes to nonblocking
+    fcntl(fd[0], F_SETFL, O_NONBLOCK);
+    fcntl(fd[1], F_SETFL, O_NONBLOCK);
+
+    ssize_t ret = ft_write(fd[1], data, len);
+    close(fd[1]);
+    if (ret == -1)
+    {
+        perror("ft_write");
+        close(fd[0]);
+        return;
+    }
+    else if (ret != len)
+    {
+        printf("ft_write returns %zd bytes written, is this correct?\n", ret);
+    }
+
+    buf = malloc(len);
+    if (!buf)
+    {
+        perror("malloc");
+        close(fd[0]);
+        return;
+    }
+
+    ret = read(fd[0], buf, len);
+    if (ret == -1)
+    {
+        perror("read");
+        close(fd[0]);
+    }
+    check_result(memcmp(buf, data, len) == 0);
+    free(buf);
+    close(fd[0]);
+}
+
 static void test_write()
 {
-    const char *str = "hi";
+    test_write_single("helllo", 6);
+    test_write_single("", 0);
 
-    ssize_t result = ft_write(34245256, str, 2);
-    printf("ret: %zd, errno: %d\n", result, errno);
+    #define BIGBUF_LEN 65536
+
+    char *bigbuf = malloc(BIGBUF_LEN);
+    memset(bigbuf, '#', BIGBUF_LEN);
+    test_write_single(bigbuf, BIGBUF_LEN);
+    free(bigbuf);
+
+    test_write_single("helllo", 6);
+
+    ssize_t result = ft_write(34245256, "hi", 2);
+    check_result(result == -1 && errno == EBADF);
 
 }
 
