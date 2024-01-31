@@ -1,17 +1,16 @@
 NAME=libasm.a
+SRC_DIR=src
+OBJ_DIR=obj
 ASM=nasm
 CC=gcc
 CFLAGS=-Wall -Wextra
 
-SRC_DIR=src # TODO
-HEADERS=libasm.h
-SRCS=ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s
-TEST_SRCS=test.c test_util.c test_write.c
+HEADERS=include/libasm.h $(SRC_DIR)/libasm_testing.h
+SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s)
+TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_write.c)
 
-OBJ_DIR=obj
-TEST_OBJ_DIR=c
-OBJ=$(SRCS:%.s=$(OBJ_DIR)/%.o)
-TEST_OBJ=$(TEST_SRCS:%.c=$(OBJ_DIR)/$(TEST_OBJ_DIR)/%.o)
+OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:%.s=%.o))
+TEST_OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(TEST_SRCS:%.c=%.co))
 
 
 all: $(NAME)
@@ -19,14 +18,12 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar -rcs $@ $^
 
-$(OBJ_DIR)/%.o: %.s | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s | $(OBJ_DIR)
 	$(ASM) -felf64 $< -o $@
 
-$(OBJ_DIR)/$(TEST_OBJ_DIR)/%.o: %.c $(NAME) $(HEADERS) | $(OBJ_DIR)/$(TEST_OBJ_DIR)
-	$(CC) -c -o $@ $(CFLAGS) $<
-
-$(OBJ_DIR)/$(TEST_OBJ_DIR): | $(OBJ_DIR)
-	mkdir $@
+# note the .co "c object" to distinguish from the .s files
+$(OBJ_DIR)/%.co: $(SRC_DIR)/%.c $(NAME) $(HEADERS) | $(OBJ_DIR)
+	$(CC) -c $(CFLAGS) -Iinclude -I$(SRC_DIR) -o $@ $<
 
 $(OBJ_DIR):
 	mkdir $@
