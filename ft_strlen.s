@@ -11,7 +11,6 @@ ft_strlen:
         mov rax, rdi ; copy string's address to rax
 
 strlen_step:
-        ; movzx rax, byte [rbx] ; get current char
         movzx rbx, byte [rax] ; get current char, only copy one byte
         cmp rbx, 0
         jz strlen_out ; if current char == 0, we're done, escape
