@@ -6,5 +6,6 @@ int     check_bytes(const char *s, const char value, size_t n);
 int     ft_sign(int n);
 
 void    test_write();
+void    test_read();
 
 #endif

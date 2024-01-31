@@ -108,5 +108,7 @@ int main()
     test_strdup();
     printf("\n");
     test_write();
+    printf("\n");
+    test_read();
     return 0;
 }

@@ -7,7 +7,7 @@ CFLAGS=-Wall -Wextra
 
 HEADERS=include/libasm.h $(SRC_DIR)/libasm_testing.h
 SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s)
-TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_write.c)
+TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_io.c)
 
 OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:%.s=%.o))
 TEST_OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(TEST_SRCS:%.c=%.co))
