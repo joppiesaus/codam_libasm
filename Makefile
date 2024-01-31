@@ -6,7 +6,7 @@ CFLAGS=-Wall -Wextra
 SRC_DIR=src # TODO
 HEADERS=libasm.h
 SRCS=ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s
-TEST_SRCS=test.c
+TEST_SRCS=test.c test_util.c test_write.c
 
 OBJ_DIR=obj
 TEST_OBJ_DIR=c
