@@ -55,7 +55,7 @@ static void test_single_strcpy(const char *s)
     // that ft_strcpy accesses memory out of bounds
     memset(dst + len, 42, ADDITIONAL_LEN);
 
-    printf("ft_strcpy %s", s);
+    printf("ft_strcpy(\"%.32s\")", s);
     fflush(stdout);
     char *returned = ft_strcpy(dst, s);
     // print_bytes(dst, len + ADDITIONAL_LEN);
@@ -77,13 +77,17 @@ static void test_strcpy()
     test_single_strcpy("asdfsdff");
     test_single_strcpy("asfdsdfadsf");
     test_single_strcpy("");
+
+    char *big = generate_big_string();
+    test_single_strcpy(big);
+    free(big);
 }
 
 static void test_single_strdup(const char *s)
 {
     char *dst;
 
-    printf("strdup(\"%s\")", s);
+    printf("strdup(\"%.32s\")", s);
     dst = ft_strdup(s);
     check_result(strcmp(s, dst) == 0 && dst != s);
     free(dst);
@@ -95,6 +99,10 @@ static void test_strdup()
     test_single_strdup("aaaaaaaa");
     test_single_strdup("aa aaab");
     test_single_strdup("aaaaaaaab");
+
+    char *big = generate_big_string();
+    test_single_strdup(big);
+    free(big);
 }
 
 int main()

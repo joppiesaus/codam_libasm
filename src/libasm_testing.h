@@ -8,4 +8,6 @@ int     ft_sign(int n);
 void    test_write();
 void    test_read();
 
+char    *generate_big_string();
+
 #endif

@@ -1,5 +1,6 @@
 #include <stddef.h> /* size_t */
 #include <stdio.h> /* printf */
+#include <stdlib.h> /* malloc */
 
 // returns true if n bytes in s are all equal to value
 int check_bytes(const char *s, const char value, size_t n)
@@ -58,6 +59,28 @@ int ft_sign(int n)
         return 1;
     }
     return 0;
+}
+
+/* generates and returns a BIG string */
+char    *generate_big_string()
+{
+    #define BIG_STRING_SIZE (1 << 16)
+
+    char *big = malloc(BIG_STRING_SIZE);
+
+    if (!big)
+    {
+        perror("malloc");
+    }
+    else
+    {
+        memcpy(big, "<big string>...", 15);
+        for (size_t i = 15; i < BIG_STRING_SIZE; i++)
+        {
+            big[i] = (i & 0x3f) + ' ';
+        }
+    }
+    return big;
 }
 
 // // prints all bytes as chars to the to the terminal, with null terminators as 0
