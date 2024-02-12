@@ -20,6 +20,7 @@ typedef struct  s_list
     struct s_list   *next;
 }               t_list;
 
-void ft_list_push_front(t_list **head, const t_list *entry);
+void    ft_list_push_front(t_list **head, const t_list *entry);
+size_t  ft_list_size(const t_list *lst);
 
 #endif
