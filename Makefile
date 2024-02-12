@@ -1,13 +1,16 @@
 NAME=libasm.a
+TEST_NAME=test
 SRC_DIR=src
 OBJ_DIR=obj
 ASM=nasm
 CC=gcc
 CFLAGS=-Wall -Wextra
 
+# TODO: separate bonus compile
+
 HEADERS=include/libasm.h $(SRC_DIR)/libasm_testing.h
-SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s)
-TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_io.c)
+SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s ft_list_push_front_bonus.s)
+TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_io.c test_bonus.c)
 
 OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:%.s=%.o))
 TEST_OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(TEST_SRCS:%.c=%.co))
@@ -33,11 +36,11 @@ clean:
 
 fclean: clean
 	rm $(NAME)
-	rm test
+	rm $(TEST_NAME)
 
 re: fclean all
 
-test: $(NAME) $(TEST_OBJ)
+$(TEST_NAME): $(NAME) $(TEST_OBJ)
 	$(CC) $(TEST_OBJ) $(CFLAGS) -lasm -L. -o $@
 
 .PHONY: all clean fclean re

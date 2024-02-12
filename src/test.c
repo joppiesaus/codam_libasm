@@ -1,5 +1,6 @@
 #include "libasm.h"
 #include "libasm_testing.h"
+#include "bonus.h"
 
 #include <string.h> /* strlen, strcmp */
 #include <stdio.h> /* printf, fflush */
@@ -118,5 +119,7 @@ int main()
     test_write();
     printf("\n");
     test_read();
+
+    test_bonus();
     return 0;
 }

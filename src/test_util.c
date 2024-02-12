@@ -1,6 +1,7 @@
 #include <stddef.h> /* size_t */
 #include <stdio.h> /* printf */
 #include <stdlib.h> /* malloc */
+#include <string.h> /* memcpy */
 
 // returns true if n bytes in s are all equal to value
 int check_bytes(const char *s, const char value, size_t n)
