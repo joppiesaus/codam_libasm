@@ -9,7 +9,7 @@ CFLAGS=-Wall -Wextra
 # TODO: separate bonus compile
 
 HEADERS=include/libasm.h $(SRC_DIR)/libasm_testing.h
-SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s ft_list_push_front_bonus.s ft_list_size_bonus.s)
+SRCS=$(addprefix $(SRC_DIR)/,ft_strlen.s ft_strcmp.s ft_strcpy.s ft_strdup.s ft_write.s ft_read.s ft_list_push_front_bonus.s ft_list_size_bonus.s ft_list_sort_bonus.s)
 TEST_SRCS=$(addprefix $(SRC_DIR)/,test.c test_util.c test_io.c test_bonus.c)
 
 OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(SRCS:%.s=%.o))

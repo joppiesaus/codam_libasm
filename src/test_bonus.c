@@ -94,6 +94,29 @@ void test_list_size()
     free_list(lst);
 }
 
+void ft_list_swap(t_list **tracer, t_list *to_swap);
+
+void test_list_swap()
+{
+    printf("ft_list_swap");
+    t_list *head = NULL;
+    t_list *front = create_list_item(1);
+    t_list *second = create_list_item(2);
+    t_list *tail = create_list_item(3);
+
+    ft_list_push_front(&head, tail);
+    ft_list_push_front(&head, second);
+    ft_list_push_front(&head, front);
+
+    ft_list_swap(&head, second);
+
+    check_result(head == second && head->next == front && head->next->next == tail
+                    && head->data == (void *)2 && head->next->data == (void *)1 &&
+                    head->next->next->data == (void *)3 );
+
+    free_list(head);
+}
+
 
 void test_bonus()
 {
@@ -101,4 +124,7 @@ void test_bonus()
     test_list_push_front();
     printf("\n");
     test_list_size();
+
+    printf("\n");
+    test_list_swap();
 }
