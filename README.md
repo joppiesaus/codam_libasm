@@ -4,12 +4,18 @@ Small project where I implement some libc functions in x86_64 to learn more abou
 ## hints
 
 Function arguments(in order):
-`RDI RSI RDX RCX R8 R9`
+`rdi rsi rdx rcx r8 r9`
 
-return regsiter:
-`RAX`
+return register:
+`rax`
 
-syscall move `rax, <syscall code>` then `syscall`
+syscall:
+```
+mov rax, <syscall code>
+syscall
+```
+
+[registers preserved accross function calls](https://stackoverflow.com/a/18024743): `rbx, rsp, rbp, r12, r13, r14, r15`
 
 useful links:
  - [amd64 instruction reference](https://www.felixcloutier.com/x86/)
