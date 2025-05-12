@@ -4,21 +4,19 @@
 ft_strcmp:
         ; RDI = const char *s1
         ; RSI = const char *s2
-        mov rcx, rdi
-        mov rdx, rsi
 
 compare_loop:
-        movzx rax, byte [rcx]
-        movzx rbx, byte [rdx]
+        movzx rax, byte [rdi]
+        movzx rcx, byte [rsi]
         cmp rax, 0 ; *s1 != 0
         jz end
-        cmp rax, rbx ; *s1 == *s2
+        cmp rax, rcx ; *s1 == *s2
         jnz end
-        inc rcx ; s1++
-        inc rdx ; s2++
+        inc rdi ; s1++
+        inc rsi ; s2++
         jmp compare_loop
 
 end:
-        sub rax, rbx ; return value = *s1 - *s2
+        sub rax, rcx ; return value = *s1 - *s2
         ; rax is returned
         ret
