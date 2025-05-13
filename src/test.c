@@ -10,7 +10,7 @@
 #define STRLEN(x) printf("strlen(\"%s\"): %zu, %zu", (x), strlen((x)), ft_strlen((x)));\
     check_result(strlen((x)) == ft_strlen((x)))
 
-#define STRCMP(a, b) printf("strcmp(\"%s\", \"%s\"): %d, %d", (a), (b), ft_sign(strcmp((a), (b))), ft_sign(ft_strcmp((a), (b))));\
+#define STRCMP(a, b) printf("strcmp(\"%s\", \"%s\"): %d, %d", (a), (b), strcmp((a), (b)), ft_strcmp((a), (b)));\
     check_two(ft_sign(strcmp((a), (b))), ft_sign(ft_strcmp((a), (b))))
 
 static void check_two(int a, int b)
