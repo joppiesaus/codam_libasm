@@ -7,9 +7,9 @@ section .text
 
 ft_strcmp:
     movzx rax, byte [rdi]
+    movzx rcx, byte [rsi]
     cmp rax, 0
     jz end
-    movzx rcx, byte [rsi]
     cmp rax, rcx
     jnz end
     inc rdi
