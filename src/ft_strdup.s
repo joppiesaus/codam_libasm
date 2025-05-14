@@ -5,8 +5,9 @@
                 extern ft_strcpy
                 extern malloc
 
+        ; char *ft_strdup(const char *s)
+        ;                 RDI
 ft_strdup:
-        ; rdi = const char *s
         push rdi         ; store rdi, we need it later
         call ft_strlen
 
@@ -14,13 +15,12 @@ ft_strdup:
 
         inc rax           ; we need to allocate an extra byte for the null terminator
 
+        ; malloc(strlen(s) + 1)
         mov rdi, rax
-        ; xor rax, rax
-
-        ; TODO: errno?
         call malloc wrt ..plt ; no idea what wrt ..plt does but you need it
 
         pop rsi         ; rsi = char *src for strcpy
+                        ; already pop here cuz we don't know if we're going to return
 
         ; did malloc return NULL? return NULL as well.
         ; since rax is already 0/null no need to xorraxrax it.

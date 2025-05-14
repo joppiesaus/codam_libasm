@@ -6,8 +6,8 @@ Small project where I implement some libc functions in x86_64 to learn more abou
 Function arguments(in order):
 `rdi rsi rdx rcx r8 r9`
 
-return register:
-`rax`
+return registers:
+`rax rdx`
 
 syscall:
 ```

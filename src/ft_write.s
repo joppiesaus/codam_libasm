@@ -15,15 +15,14 @@ ft_write:
         ; RDI, RSI, RDX should be filled in
         syscall
 
-        ; check for error. syscall returns negative errno on errror
-        cmp     rax, 0
-        jge     end
+        cmp     rax, 0  ; check for error. syscall returns negative errno on errror
+        jge     end     ; jump to end when everything OK
 
         neg     rax     ; flip errno(return value is negative errno)
         push    rax     ; save errno
         call    __errno_location wrt ..plt      ; put errno location into rax
-        pop     rbx     ; put errno into rbx
-        mov     [rax], ebx      ; write errno(is 32 bit int)
+        pop     rcx     ; put errno into rcx
+        mov     [rax], ecx      ; write errno(is 32 bit int)
         mov     rax, -1         ; return -1
 
 end:

@@ -1,10 +1,10 @@
             section .text
             global ft_strcpy
 
+        ; void ft_strcpy(const char *src, char *dst)
+        ;                RDI              RSI
 ft_strcpy:
-        ; RDI = char *dst
-        ; RSI = const char *src
-        ; store rdi, we need it later
+        ; store dst, we need it later
         mov rdx, rdi
  
 compare_loop:

@@ -6,8 +6,10 @@
                         section .text
                         global ft_strlen
 
+        ; size_t ft_strlen(const char *str)
+        ;                  RDI
+
 ft_strlen:
-        ; rdi = first argument,
         mov rax, rdi ; copy string's address to rax
 
 strlen_step:

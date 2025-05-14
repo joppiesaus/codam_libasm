@@ -42,7 +42,24 @@ static void test_strcmp()
     STRCMP("b\0bsfssdfs", " ggbef");
     STRCMP("\220", "");
     STRCMP("", "\220");
+    STRCMP("", "\1");
     STRCMP("f", "g");
+
+    // test to see if it really is an int
+    // int result = ft_strcmp("", " ");
+    // char* bytes = (char *)&result; // o m g
+    // printf("%i      %hhx %hhx %hhx %hhx\n", result, *bytes, bytes[1], bytes[2], bytes[3]);
+
+    // ssize_t two = result;
+    // bytes = (char *)&two;
+    // bytes[5] = 0;
+    // // bytes[3] = 0x7f;
+    // printf("%zi      %hhx %hhx %hhx %hhx %hhx %hhx %hhx %hhx\n", two, *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
+    // printf("%i      %hhx %hhx %hhx %hhx %hhx %hhx %hhx %hhx\n", (int)two, *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
+
+    // result = two;
+    // printf("%i      %hhx %hhx %hhx %hhx\n", result, *bytes, bytes[1], bytes[2], bytes[3]);
+    // exit(0);
 }
 
 static void test_single_strcpy(const char *s)
