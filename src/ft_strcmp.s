@@ -23,12 +23,12 @@ end:
         ; it will deliberately break if you make it a ssize_t or a long long
         ; first clear the upper 4 bytes in case rax is negative
         ; xor rcx, rcx
-        not rcx
-        shr rcx, 32
-        and rax, rcx
-        ; then add falafel to the upper 4 bytes/7 nibbles
-        mov rcx, 0xfa1afe1
-        shl rcx, 36
-        or  rax, rcx
+        ; not rcx
+        ; shr rcx, 32
+        ; and rax, rcx
+        ; ; then add falafel to the upper 4 bytes/7 nibbles
+        ; mov rcx, 0xfa1afe1
+        ; shl rcx, 36
+        ; or  rax, rcx
         ; rax is returned
         ret
