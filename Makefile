@@ -19,7 +19,7 @@ TEST_OBJ=$(subst $(SRC_DIR),$(OBJ_DIR),$(TEST_SRCS:%.c=%.co))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar -rcs $@ $^
+	ar -rcs $@ $?
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.s | $(OBJ_DIR)
 	$(ASM) -felf64 $< -o $@
