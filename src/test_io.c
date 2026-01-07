@@ -126,6 +126,7 @@ void test_write()
     ssize_t result = ft_write(34245256, "hi", 2);
     check_result(result == -1 && errno == EBADF);
 
+    #undef BIGBUF_LEN
 }
 
 void test_read()
@@ -144,6 +145,8 @@ void test_read()
 
     printf("ft_read(<invalid fd>...)");
 
-    ssize_t result = ft_write(34245256, "hi", 2);
+    ssize_t result = ft_read(34245256, "hi", 2);
     check_result(result == -1 && errno == EBADF);
+
+    #undef BIGBUF_LEN
 }
